@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Helpers;
+
+
+class ShellExecutor
+{
+
+    /***
+     * Project root path
+     * @var string
+     */
+    private string $PROJECT_PATH;
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->PROJECT_PATH;
+    }
+
+    /**
+     * @param string $PROJECT_PATH
+     */
+    public function setPath(string $PROJECT_PATH): void
+    {
+        $this->PROJECT_PATH = $PROJECT_PATH;
+    }
+
+
+    /***
+     * Set root project if path the no path given
+     *
+     * @param $PROJECT_PATH
+     */
+    public function __construct($PROJECT_PATH = null)
+    {
+        $this->PROJECT_PATH = $PROJECT_PATH;
+    }
+
+    /***
+     * Run command
+     *
+     * @param $command
+     *
+     * @return bool|string|null
+     */
+    public function exec($command): bool|string|null
+    {
+        return shell_exec("cd $this->PROJECT_PATH && $command");
+    }
+
+
+}
